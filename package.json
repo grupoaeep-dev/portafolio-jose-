@@ -1,0 +1,27 @@
+{
+  "name": "portafolio-jose-dinamico",
+  "version": "1.0.0",
+  "description": "Portafolio web dinámico para José Humberto Mejía Godoy con SQLite nativo de Node.js (cero compilación)",
+  "main": "server.js",
+  "scripts": {
+    "start": "node database/seed.js && node server.js",
+    "seed": "node database/seed.js"
+  },
+  "engines": {
+    "node": ">=22.13.0"
+  },
+  "keywords": [
+    "portfolio",
+    "sqlite",
+    "express",
+    "crm"
+  ],
+  "author": "José Humberto Mejía Godoy",
+  "license": "ISC",
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "cors": "^2.8.5",
+    "express": "^4.21.2",
+    "jsonwebtoken": "^9.0.2"
+  }
+}

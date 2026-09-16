@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Panel de Administración | José Humberto Mejía Godoy</title>
+  
+  <!-- Google Fonts: Plus Jakarta Sans -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  
+  <link rel="stylesheet" href="admin.css">
+</head>
+<body>
+
+  <!-- 1. VISTA DE LOGIN -->
+  <div id="loginView" class="login-container">
+    <div class="login-card">
+      <div class="login-header">
+        <div class="brand-avatar">JH</div>
+        <h2>Panel de Control</h2>
+        <p>Administración del Portafolio & CRM</p>
+      </div>
+
+      <form id="loginForm" class="login-form">
+        <div class="form-group">
+          <label for="loginUsername">Usuario</label>
+          <input type="text" id="loginUsername" placeholder="Ingresa tu usuario (ej. admin)" required autocomplete="username">
+        </div>
+
+        <div class="form-group">
+          <label for="loginPassword">Contraseña</label>
+          <input type="password" id="loginPassword" placeholder="Ingresa tu contraseña" required autocomplete="current-password">
+        </div>
+
+        <div id="loginError" class="alert-error" style="display: none;"></div>
+
+        <button type="submit" class="btn btn-primary btn-block" id="loginBtn">
+          <span>Ingresar al Panel</span>
+        </button>
+      </form>
+
+      <div class="login-footer">
+        <a href="/" target="_blank">← Volver al sitio público</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- 2. VISTA DEL DASHBOARD (ADMINISTRADOR) -->
+  <div id="dashboardView" class="dashboard-layout" style="display: none;">
+    <!-- Barra Lateral (Sidebar) -->
+    <aside class="sidebar">
+      <div class="sidebar-header">
+        <div class="brand-avatar">JH</div>
+        <div>
+          <h3>José Humberto</h3>
+          <span class="badge-role">Administrador</span>
+        </div>
+      </div>
+
+      <nav class="sidebar-nav">
+        <button class="nav-item active" data-tab="tab-overview">
+          <span class="nav-icon">📊</span> Resumen & Métricas
+        </button>
+        <button class="nav-item" data-tab="tab-leads">
+          <span class="nav-icon">📥</span> Mensajes / CRM
+          <span class="leads-count-badge" id="sidebarNewLeadsBadge">0</span>
+        </button>
+        <button class="nav-item" data-tab="tab-services">
+          <span class="nav-icon">🛠️</span> Servicios
+        </button>
+        <button class="nav-item" data-tab="tab-cases">
+          <span class="nav-icon">📈</span> Casos de Éxito
+        </button>
+        <button class="nav-item" data-tab="tab-settings">
+          <span class="nav-icon">⚙️</span> Ajustes & Contacto
+        </button>
+      </nav>
+
+      <div class="sidebar-footer">
+        <a href="/" target="_blank" class="sidebar-action-btn">
+          <span>👁️ Ver Sitio Web</span>
+        </a>
+        <button id="logoutBtn" class="sidebar-action-btn btn-logout">
+          <span>🚪 Cerrar Sesión</span>
+        </button>
+      </div>
+    </aside>
+
+    <!-- Contenido Principal -->
+    <main class="main-content">
+      <!-- Encabezado Superior -->
+      <header class="topbar">
+        <div class="topbar-title">
+          <h1 id="topbarHeading">Resumen General</h1>
+          <p id="topbarSub">Bienvenido de nuevo a tu panel de control</p>
+        </div>
+        <div class="topbar-user">
+          <span id="userDisplayName">José Humberto M.G.</span>
+        </div>
+      </header>
+
+      <!-- Pestaña 1: Resumen & Métricas -->
+      <section id="tab-overview" class="tab-panel active">
+        <!-- Tarjetas de Métricas -->
+        <div class="kpi-grid">
+          <div class="kpi-card">
+            <div class="kpi-icon icon-blue">📥</div>
+            <div>
+              <div class="kpi-value" id="kpiTotalLeads">0</div>
+              <div class="kpi-label">Prospectos Totales</div>
+            </div>
+          </div>
+          <div class="kpi-card">
+            <div class="kpi-icon icon-yellow">🔔</div>
+            <div>
+              <div class="kpi-value" id="kpiNewLeads">0</div>
+              <div class="kpi-label">Nuevos por Atender</div>
+            </div>
+          </div>
+          <div class="kpi-card">
+            <div class="kpi-icon icon-green">💬</div>
+            <div>
+              <div class="kpi-value" id="kpiWhatsappClicks">0</div>
+              <div class="kpi-label">Clics en WhatsApp</div>
+            </div>
+          </div>
+          <div class="kpi-card">
+            <div class="kpi-icon icon-purple">🌐</div>
+            <div>
+              <div class="kpi-value" id="kpiPageViews">0</div>
+              <div class="kpi-label">Visitas Registradas</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Tabla de Últimos Prospectos -->
+        <div class="content-card">
+          <div class="card-header">
+            <h3>Últimos Mensajes Recibidos</h3>
+            <button class="btn btn-sm btn-secondary" onclick="switchTab('tab-leads')">Ver todos los prospectos</button>
+          </div>
+          <div class="table-responsive">
+            <table class="data-table" id="recentLeadsTable">
+              <thead>
+                <tr>
+                  <th>Fecha</th>
+                  <th>Nombre</th>
+                  <th>Servicio</th>
+                  <th>Estado</th>
+                  <th>Acción</th>
+                </tr>
+              </thead>
+              <tbody id="recentLeadsTbody">
+                <tr><td colspan="5" class="text-center">Cargando prospectos...</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- Pestaña 2: CRM de Mensajes / Leads -->
+      <section id="tab-leads" class="tab-panel">
+        <div class="content-card">
+          <div class="card-header flex-wrap">
+            <div>
+              <h3>CRM de Prospectos</h3>
+              <p class="card-sub">Gestiona la atención y seguimiento de cada persona que llena el formulario</p>
+            </div>
+            <!-- Filtro de Estado -->
+            <div class="filters-row">
+              <select id="leadsStatusFilter" class="filter-select">
+                <option value="todos">Todos los estados</option>
+                <option value="nuevo">Nuevos</option>
+                <option value="contactado">Contactados</option>
+                <option value="en_negociacion">En Negociación</option>
+                <option value="cerrado">Cerrados / Ganados</option>
+                <option value="descartado">Descartados</option>
+              </select>
+              <button class="btn btn-sm btn-primary" id="refreshLeadsBtn">Actualizar</button>
+            </div>
+          </div>
+
+          <!-- Lista de Leads en formato de tarjetas detalladas -->
+          <div id="leadsListContainer" class="leads-list">
+            <div class="text-center p-4">Cargando prospectos...</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Pestaña 3: Servicios -->
+      <section id="tab-services" class="tab-panel">
+        <div class="content-card">
+          <div class="card-header">
+            <div>
+              <h3>Catálogo de Servicios</h3>
+              <p class="card-sub">Activa, edita o agrega los servicios que ofreces en tu portafolio</p>
+            </div>
+            <button class="btn btn-sm btn-primary" id="newServiceBtn">+ Nuevo Servicio</button>
+          </div>
+          <div id="servicesListContainer" class="admin-items-grid">
+            <!-- Renderizado dinámico -->
+          </div>
+        </div>
+      </section>
+
+      <!-- Pestaña 4: Casos de Éxito -->
+      <section id="tab-cases" class="tab-panel">
+        <div class="content-card">
+          <div class="card-header">
+            <div>
+              <h3>Casos de Éxito y Campañas</h3>
+              <p class="card-sub">Muestra ejemplos de resultados reales para transmitir confianza a nuevos clientes</p>
+            </div>
+            <button class="btn btn-sm btn-primary" id="newCaseBtn">+ Nuevo Caso</button>
+          </div>
+          <div id="casesListContainer" class="admin-items-grid">
+            <!-- Renderizado dinámico -->
+          </div>
+        </div>
+      </section>
+
+      <!-- Pestaña 5: Ajustes & Contacto -->
+      <section id="tab-settings" class="tab-panel">
+        <div class="content-card">
+          <div class="card-header">
+            <h3>Configuraciones de Contacto y Métricas</h3>
+            <p class="card-sub">Modifica tu WhatsApp, correo y datos mostrados en la página principal</p>
+          </div>
+
+          <form id="settingsForm" class="settings-grid-form">
+            <div class="form-group">
+              <label for="settingWhatsapp">Número de WhatsApp (con código de país, sin signos)</label>
+              <input type="text" id="settingWhatsapp" placeholder="Ej. 50499998888">
+              <small>Ejemplo para Honduras: 50499998888 | México: 5215512345678</small>
+            </div>
+
+            <div class="form-group">
+              <label for="settingEmail">Correo Electrónico de Contacto</label>
+              <input type="email" id="settingEmail" placeholder="tu-correo@ejemplo.com">
+            </div>
+
+            <div class="form-group">
+              <label for="settingHeroTitle">Titular Principal del Hero</label>
+              <input type="text" id="settingHeroTitle">
+            </div>
+
+            <div class="form-group">
+              <label for="settingHeroSubtitle">Subtítulo / Presentación</label>
+              <textarea id="settingHeroSubtitle" rows="3"></textarea>
+            </div>
+
+            <div class="form-row-3">
+              <div class="form-group">
+                <label for="settingStatCsat">Métrica CSAT (%)</label>
+                <input type="number" id="settingStatCsat" min="0" max="100">
+              </div>
+              <div class="form-group">
+                <label for="settingStatCommitment">Métrica Compromiso (%)</label>
+                <input type="number" id="settingStatCommitment" min="0" max="100">
+              </div>
+              <div class="form-group">
+                <label for="settingStatResponseTime">Tiempo de Respuesta (min)</label>
+                <input type="number" id="settingStatResponseTime" min="1">
+              </div>
+            </div>
+
+            <div class="form-actions">
+              <button type="submit" class="btn btn-primary" id="saveSettingsBtn">Guardar Configuraciones</button>
+              <span id="settingsSavedMsg" class="success-inline" style="display: none;">¡Configuraciones guardadas!</span>
+            </div>
+          </form>
+        </div>
+
+        <!-- Cambio de Contraseña -->
+        <div class="content-card mt-4">
+          <div class="card-header">
+            <h3>Seguridad de la Cuenta</h3>
+            <p class="card-sub">Cambiar tu contraseña de acceso al panel de administración</p>
+          </div>
+          <form id="changePasswordForm" class="password-form">
+            <div class="form-group">
+              <label for="currentPassword">Contraseña Actual</label>
+              <input type="password" id="currentPassword" required autocomplete="current-password">
+            </div>
+            <div class="form-group">
+              <label for="newPassword">Nueva Contraseña (mínimo 6 caracteres)</label>
+              <input type="password" id="newPassword" required minlength="6" autocomplete="new-password">
+            </div>
+            <div id="passwordAlert" class="alert-info" style="display: none;"></div>
+            <button type="submit" class="btn btn-secondary">Actualizar Contraseña</button>
+          </form>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <script src="admin.js"></script>
+</body>
+</html>

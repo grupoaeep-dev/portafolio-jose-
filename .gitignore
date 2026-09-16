@@ -1,0 +1,5 @@
+node_modules/
+database/portfolio.db
+npm-debug.log*
+*.log
+.env
