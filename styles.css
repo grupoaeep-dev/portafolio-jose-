@@ -1379,3 +1379,134 @@ button, input, textarea, select {
     display: none;
   }
 }
+
+/* --- Responsive Móvil (Teléfonos ≤ 480px) --- */
+@media (max-width: 480px) {
+  .container {
+    padding: 0 18px;
+  }
+
+  .nav-container {
+    height: 68px;
+  }
+
+  .brand-avatar {
+    width: 38px;
+    height: 38px;
+    font-size: 1rem;
+  }
+
+  .brand-name {
+    font-size: 1.02rem;
+  }
+
+  .nav-menu {
+    top: 68px;
+    padding: 20px 18px;
+  }
+
+  .section {
+    padding: 64px 0;
+  }
+
+  .section-title {
+    font-size: 1.6rem;
+  }
+
+  .section-description {
+    font-size: 0.98rem;
+    margin-bottom: 40px;
+  }
+
+  .hero {
+    padding: 110px 0 56px;
+  }
+
+  .hero-title {
+    font-size: 1.85rem;
+    line-height: 1.2;
+  }
+
+  .hero-subtitle {
+    font-size: 1.02rem;
+    margin-bottom: 28px;
+  }
+
+  .badge-status {
+    font-size: 0.76rem;
+    padding: 5px 12px;
+  }
+
+  .hero-actions {
+    flex-direction: column;
+  }
+
+  .hero-actions .btn {
+    width: 100%;
+  }
+
+  .stat-number, .stat-prefix, .stat-symbol {
+    font-size: 1.7rem;
+  }
+
+  .profile-card {
+    padding: 22px;
+  }
+
+  .profile-avatar-large {
+    width: 60px;
+    height: 60px;
+  }
+
+  .about-card,
+  .service-card,
+  .case-card,
+  .testimonial-card {
+    padding: 26px 20px;
+  }
+
+  .skill-category {
+    padding: 24px 18px;
+  }
+
+  .tools-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .contact-box {
+    padding: 24px 16px;
+  }
+
+  .contact-title {
+    font-size: 1.6rem;
+  }
+
+  .contact-text {
+    font-size: 0.98rem;
+  }
+
+  .contact-method-card {
+    padding: 14px 16px;
+  }
+
+  .contact-form-wrapper {
+    padding: 20px 16px;
+  }
+
+  .form-title {
+    font-size: 1.25rem;
+  }
+
+  .form-group input,
+  .form-group select,
+  .form-group textarea {
+    font-size: 16px;
+  }
+
+  .whatsapp-float {
+    width: 54px;
+    height: 54px;
+    bottom: 18px;
+    right: 18px;
+  }
+}
